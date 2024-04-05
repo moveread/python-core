@@ -2,5 +2,5 @@ from pydantic import BaseModel
 from .types import Rectangle
 
 class Annotations(BaseModel):
-  model_coords: Rectangle
+  grid_coords: Rectangle | None = None
   """Grid coords (matching some scoresheet model)"""
