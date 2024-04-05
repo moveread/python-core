@@ -4,5 +4,5 @@
 
 - Details
 """
-from .annotations import Annotations, Language, Styles
+from .annotations import Annotations, Language, Styles, AnnotationSchemas
 from .export_ import export, ChessError

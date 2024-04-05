@@ -13,7 +13,7 @@ class Pads(TypedDict):
 class Params(TypedDict):
   coords: Rectangle
   model: Model
-  pads: NotRequired[Pads]
+  pads: NotRequired[Pads|None]
 
 default_pads = Pads(l=0.1, r=0.1, t=0.2, b=0.2)
 
@@ -46,5 +46,5 @@ def extract(img: cv.Mat, **p: Unpack[Params]) -> list[cv.Mat]:
   imh, imw = img.shape[:2]
   positions = box_positions(img, **p)
   box_size = np.array(p['model'].box_size) * [imw, imh] * p['coords']['size']
-  rois = padded_rois(positions, box_size, p.get('pads', {})) # type: ignore
+  rois = padded_rois(positions, box_size, p.get('pads') or {}) # type: ignore
   return [img[t:b, l:r] for l, r, t, b in rois] # type: ignore

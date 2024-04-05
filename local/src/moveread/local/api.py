@@ -11,10 +11,7 @@ from kv.api.errors import InvalidData
 from moveread.core import CoreAPI, Game
 
 def parse_game(x: str | bytes) -> E.Either[InvalidData, Game]:
-  try:
-    return E.Right(Game.model_validate_json(x))
-  except ValidationError as e:
-    return E.Left(InvalidData(e))
+  return E.validate_json(x, Game).mapl(lambda e: InvalidData(str(e)))
 
 @dataclass
 class LocalAPI(CoreAPI):

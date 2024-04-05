@@ -1,8 +1,9 @@
+from functools import partial
 from haskellian.either import Either, Left, Right
 import chess
 from chess import IllegalMoveError, InvalidMoveError, AmbiguousMoveError
 from chess_notation.styles import Styles, style
-from chess_notation.language import translate
+from chess_notation.language import translate, Language
 from chess_utils import captured_piece
 from ..annotations import Annotations
 
@@ -30,12 +31,26 @@ def apply_styles(pgn: list[str], styles: Styles | None, verify_legal: bool = Tru
   else:
     return Right([style(san, styles) for san in pgn])
 
+def apply_lang(moves: list[str], lang: Language | None) -> list[str]:
+  """Map translate if `lang is not None`"""
+  return moves if lang is None else [translate(san, lang) for san in moves]
+
+def apply_manual(moves: list[str], manual_labels: dict[int, str] | None) -> list[str]:
+  if manual_labels is None:
+    return moves
+  output = moves.copy()
+  for i, lab in sorted(manual_labels.items()):
+    if i < len(moves):
+      output[i] = lab
+    elif i == len(moves):
+      output.append(lab)
+  return output
+
 def export(pgn: list[str], ann: Annotations) -> Either[ChessError, list[str]]:
   """Export `pgn` into `labels` as described by the annotations"""
   moves = pgn if ann.end_correct is None else pgn[:ann.end_correct]
-  styled = apply_styles(moves, ann.styles)
-  if ann.language is None:
-    return styled
-  else:
-    return styled.fmap(lambda moves: [translate(san, ann.language) for san in moves])
+  return apply_styles(moves, ann.styles) \
+    | partial(apply_lang, lang=ann.language) \
+    | partial(apply_manual, manual_labels=ann.manual_labels)
+
 
