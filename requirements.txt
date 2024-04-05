@@ -1,3 +1,10 @@
 build
 twine
+pure-cv[plot]
+haskellian
+haskellian-asyn
+haskellian-iterables
 -e core
+-e local
+-e labels
+-e boxes
