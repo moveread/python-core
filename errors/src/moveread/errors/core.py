@@ -28,4 +28,4 @@ class InexistentImage(BaseException):
   imageId: ImageID
   num_versions: int
   detail: Any = None
-  reason: Literal['inexistent-sheet'] = 'inexistent-sheet'
+  reason: Literal['inexistent-image'] = 'inexistent-image'

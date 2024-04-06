@@ -9,7 +9,7 @@ class InsertOk(NamedTuple):
   game: Game
   url: str
 
-def insert_url(
+def upsert_url(
   game: Game, id: SheetID, *,
   img_url: Callable[[ImageID], str] | None = None,
   version: int | None = None
@@ -42,14 +42,14 @@ def insert_url(
   else:
     return E.Left(InexistentImage(id.imageId(version), num_versions=len(sheet.images)))
   
-async def insert(
+async def upsert(
   id: SheetID, img: bytes, *,
   api: CoreAPI, version: int | None = None,
   img_url: Callable[[ImageID], str] | None = None
 ) -> E.Either[InexistentGame|InexistentSheet|InexistentPlayer|InvalidData|DBError, Game]:
   try:
     game = (await api.games.read(id.gameId)).unsafe()
-    new_game, url = insert_url(game, id, img_url=img_url, version=version).unsafe()
+    new_game, url = upsert_url(game, id, img_url=img_url, version=version).unsafe()
     results = await asyncio.gather(
       api.games.update(id.gameId, new_game),
       api.blobs.insert(url, img, replace=True),
