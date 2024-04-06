@@ -1,10 +1,10 @@
 from typing import Literal, Any
 from dataclasses import dataclass
-from moveread.core.models import GameID, PlayerID, SheetID
+from moveread.core.models import PlayerID, SheetID, ImageID
 
 @dataclass
 class InexistentGame(BaseException):
-  gameId: GameID
+  gameId: str
   detail: Any = None
   reason: Literal['inexistent-game'] = 'inexistent-game'
 
@@ -20,5 +20,12 @@ class InexistentPlayer(BaseException):
 class InexistentSheet(BaseException):
   sheetId: SheetID
   num_pages: int
+  detail: Any = None
+  reason: Literal['inexistent-sheet'] = 'inexistent-sheet'
+
+@dataclass
+class InexistentImage(BaseException):
+  imageId: ImageID
+  num_versions: int
   detail: Any = None
   reason: Literal['inexistent-sheet'] = 'inexistent-sheet'
