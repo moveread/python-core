@@ -1,9 +1,22 @@
 from fastapi import FastAPI
+from fastapi.routing import APIRoute
+from fastapi.middleware.cors import CORSMiddleware
 from moveread.sdk import MovereadAPI
 from . import games, images
 
-def app(sdk: MovereadAPI):
-  app = FastAPI()
+
+def route_id(route: APIRoute):
+  return route.name
+
+def make_app(sdk: MovereadAPI):
+  app = FastAPI(generate_unique_id_function=route_id)
+  app.add_middleware(
+      CORSMiddleware,
+      allow_origins=["*"],
+      allow_credentials=True,
+      allow_methods=["*"],
+      allow_headers=["*"],
+  )
   app.include_router(games.router(sdk), tags=['games'], prefix='/games')
   app.include_router(images.router(sdk), tags=['images'], prefix='/images')
 

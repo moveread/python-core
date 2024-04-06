@@ -1,6 +1,11 @@
 mod core
 mod local
-mod label
+mod labels
+mod boxes
+mod errors
+mod export
+mod sdk
+mod api
 
 VENV := ".venv"
 PYTHON := ".venv/bin/python"

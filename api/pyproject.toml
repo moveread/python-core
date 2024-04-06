@@ -20,7 +20,8 @@ readme = {file="README.md", content-type="text/markdown"}
 # repo = "<GIT_REPO_URL>"
 
 [project.scripts]
-moveread-api = "moveread.api.drivers.local:main"
+moveread-api = "moveread.api.scripts.local:main"
+moveread-api-clientgen = "moveread.api.scripts.client_gen:main"
 
 [project.optional-dependencies]
 local = ["uvicorn", "moveread-local"]

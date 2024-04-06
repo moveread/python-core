@@ -8,3 +8,4 @@ haskellian-iterables
 -e local
 -e labels
 -e boxes
+-e /home/m4rs/test/pydantic-codegen/codegen

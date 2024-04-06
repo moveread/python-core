@@ -21,6 +21,7 @@ class Headers(BaseModel):
   result: str | None = None
 
 class GameMeta(BaseModel):
+  model_config = ConfigDict(extra='forbid')
   tournament: Tournament | None = None
   headers: Headers | None = None
   pgn: str | None = None

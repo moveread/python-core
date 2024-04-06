@@ -1,10 +1,11 @@
 from typing import Any
-from pydantic import BaseModel, RootModel, ValidationError
+from pydantic import BaseModel, RootModel, ValidationError, ConfigDict
 import haskellian.either as E
 from scoresheet_models import ModelID
 from moveread.errors import InvalidMeta, InexistentSchema, InvalidData
 
 class SheetMeta(BaseModel):
+  model_config = ConfigDict(extra='forbid')
   model: ModelID | None = None
 
 SheetSchemas: dict[str, type[BaseModel]] = dict(

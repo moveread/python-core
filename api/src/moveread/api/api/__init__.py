@@ -1,1 +1,1 @@
-from .api import app
+from .api import make_app

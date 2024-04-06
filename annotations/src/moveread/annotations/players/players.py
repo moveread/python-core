@@ -1,11 +1,11 @@
 from typing import Any
-from pydantic import ValidationError
+from pydantic import ValidationError, ConfigDict
 import haskellian.either as E
 from moveread.labels import Annotations, AnnotationSchemas
 from moveread.errors import InexistentSchema, InvalidData, InvalidMeta
 
 class PlayerMeta(Annotations):
-  ...
+  model_config = ConfigDict(extra='forbid')
 
 PlayerSchemas = AnnotationSchemas
 

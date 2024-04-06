@@ -1,5 +1,5 @@
 from typing import Literal, Any
-from pydantic import RootModel, ValidationError
+from pydantic import RootModel, ValidationError, ConfigDict
 import haskellian.either as E
 from moveread.boxes import Annotations, Rectangle
 from moveread.errors import InvalidData, InvalidMeta, InexistentSchema
@@ -7,6 +7,7 @@ from moveread.errors import InvalidData, InvalidMeta, InexistentSchema
 Source = Literal['raw-scan', 'corrected-scan', 'camera', 'corrected-camera'] 
 
 class ImageMeta(Annotations):
+  model_config = ConfigDict(extra='forbid')
   source: Source | None = None
 
 ImageSchemas = dict(
