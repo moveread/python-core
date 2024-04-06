@@ -5,11 +5,8 @@ from moveread.sdk import MovereadAPI
 from . import games, images
 
 
-def route_id(route: APIRoute):
-  return route.name
-
 def make_app(sdk: MovereadAPI):
-  app = FastAPI(generate_unique_id_function=route_id)
+  app = FastAPI(generate_unique_id_function=lambda route: route.name)
   app.add_middleware(
       CORSMiddleware,
       allow_origins=["*"],

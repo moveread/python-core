@@ -1,7 +1,6 @@
 from moveread.api import make_app
-import os
-import json
 from argparse import ArgumentParser
+from openapi_ts import generate_client
 
 def main():
 
@@ -11,8 +10,4 @@ def main():
 
   app = make_app({}) # type: ignore
   spec = app.openapi()
-  file = '/tmp/openapi.json'
-  with open(file, 'w') as f:
-    json.dump(spec, f)
-  os.chdir(args.package_path)
-  os.system(f'npx @hey-api/openapi-ts -i {file} -o src/')
+  generate_client(spec, args.package_path)

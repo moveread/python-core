@@ -25,6 +25,7 @@ moveread-api-clientgen = "moveread.api.scripts.client_gen:main"
 
 [project.optional-dependencies]
 local = ["uvicorn", "moveread-local"]
+client-gen = ["openapi-ts"]
 # test = [
 #   "pytest < 5.0.0",
 #   "pytest-cov[all]"

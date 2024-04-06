@@ -6,6 +6,7 @@ mod errors
 mod export
 mod sdk
 mod api
+mod annotations
 
 VENV := ".venv"
 PYTHON := ".venv/bin/python"

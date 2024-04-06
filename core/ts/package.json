@@ -1,0 +1,21 @@
+{
+  "name": "@moveread/core",
+  "version": "1.0.2",
+  "description": "Generated Moveread Core models",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moveread/python-core.git"
+  },
+  "author": "Marcel Claramunt",
+  "license": "ISC",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "",
+    "@typescript-eslint/parser": "",
+    "eslint": "",
+    "typescript": ""
+  }
+}
