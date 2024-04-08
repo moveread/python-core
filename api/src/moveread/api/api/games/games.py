@@ -8,18 +8,18 @@ from moveread.errors import DBError, InvalidData, InexistentItem
 def router(sdk: MovereadAPI):
   app = APIRouter()
 
-  @app.get('/')
+  @app.get('/all')
   async def list_games(batch_size: int | None = None) -> list[E.Either[DBError, str]]:
     return await sdk.games.list(batch_size)
   
-  @app.get('/{id}')
+  @app.get('/')
   async def read_game(id: str, response: Response) -> E.Either[DBError|InvalidData|InexistentItem, Game]:
     result = await sdk.games.read(id)
     if E.is_left(result):
       response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     return result
   
-  @app.post('/{id}', status_code=status.HTTP_201_CREATED)
+  @app.post('/', status_code=status.HTTP_201_CREATED)
   async def create_game(
     id: str, response: Response,
     white: Annotated[list[bytes], File(description="White's images")],
@@ -31,7 +31,7 @@ def router(sdk: MovereadAPI):
       response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     return result
   
-  @app.put('/{id}')
+  @app.put('/')
   async def upsert_game(id: str, game: Game, response: Response) -> E.Either[DBError, None]:
     result = await sdk.core.games.insert(id, game, replace=True)
     if E.is_left(result):

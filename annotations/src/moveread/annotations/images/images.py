@@ -4,11 +4,13 @@ import haskellian.either as E
 from moveread.boxes import Annotations, Rectangle
 from moveread.errors import InvalidData, InvalidMeta, InexistentSchema
 
-Source = Literal['raw-scan', 'corrected-scan', 'camera', 'corrected-camera'] 
+Source = Literal['raw-scan', 'corrected-scan', 'camera', 'corrected-camera', 'robust-corrected'] 
+RobustExtractionResult = Literal['failed', 'incorrect', 'perspective-correct', 'correct']
+"""`'perspective-correct'` is when the corrected image is good but the contours are bad"""
 
 class ImageMeta(Annotations):
-  model_config = ConfigDict(extra='forbid')
   source: Source | None = None
+  robust_extraction: RobustExtractionResult | None = None
 
 ImageSchemas = dict(
   grid_coords=RootModel[Rectangle],

@@ -1,13 +1,12 @@
 import haskellian.either as E
 from moveread.core import CoreAPI, Game, SheetID
-from moveread.annotations.sheets import validate
-from moveread.errors import InvalidMeta, DBError, InvalidData, InexistentPlayer, InexistentGame, InexistentSheet, InexistentItem
+from moveread.annotations.sheets import SheetMeta
+from moveread.errors import DBError, InvalidData, InexistentPlayer, InexistentGame, InexistentSheet, InexistentItem
 
 async def annotate(
-  id: SheetID, schema: str, metadata: dict, *, api: CoreAPI
-) -> E.Either[InvalidMeta|InvalidData|InexistentGame|InexistentPlayer|InexistentSheet|DBError, Game]:
+  id: SheetID, meta: SheetMeta, *, api: CoreAPI
+) -> E.Either[InvalidData|InexistentGame|InexistentPlayer|InexistentSheet|DBError, Game]:
    try:
-      meta = validate(schema, metadata).unsafe()
       game = (await api.games.read(id.gameId)).unsafe()
 
       if id.player >= len(game.players):
@@ -18,7 +17,7 @@ async def annotate(
          return E.Left(InexistentSheet(sheetId=id, num_pages=len(player.sheets)))
 
       sheet = player.sheets[id.page]
-      sheet.meta = (sheet.meta or {}) | dict(schema=meta)
+      sheet.meta = (sheet.meta or {}) | meta.model_dump(exclude_none=True)
       (await api.games.update(id.gameId, game)).unsafe()
       return E.Right(game)
    except E.IsLeft as e:

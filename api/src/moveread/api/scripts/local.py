@@ -7,7 +7,9 @@ from ..api import make_app
 def local_app(base_path: str):
   core = LocalAPI.at(base_path)
   api = MovereadAPI(core)
-  return make_app(api)
+  blobs = os.path.join(base_path, 'blobs')
+  os.makedirs(blobs, exist_ok=True)
+  return make_app(api, blobs)
 
 def main():
   import uvicorn

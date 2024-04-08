@@ -1,11 +1,11 @@
-export type Body_Add_Image = {
+export type Body_Add_modify_Image = {
 	img: Blob | File;
 };
 
 
 
-export type Body_Modify_image = {
-	img: Blob | File;
+export type Body_annotate_image = {
+	meta: string | Array<unknown> | Record<string, unknown>;
 };
 
 
@@ -15,6 +15,12 @@ export type Body_create_game = {
 	 * White's images
 	 */
 	white: Array<Blob | File>;
+};
+
+
+
+export type Body_extract = {
+	sheet: Blob | File;
 };
 
 
@@ -65,8 +71,24 @@ export type Either_Union_DBError__InvalidData__InexistentItem__Game_ = {
 
 
 
-export type Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_ = {
-	value: InexistentGame | InexistentSheet | InexistentPlayer | InvalidData | DBError | Game_Output;
+export type Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InexistentImage__InvalidData__DBError__Game_ = {
+	value: InexistentGame | InexistentSheet | InexistentPlayer | InexistentImage | InvalidData | DBError | Game_Output;
+	tag: 'left' | 'right';
+};
+
+
+
+
+export type Either_Union_InexistentSchema__InvalidData__InexistentGame__InexistentPlayer__InexistentSheet__InexistentImage__DBError__Game_ = {
+	value: InexistentSchema | InvalidData | InexistentGame | InexistentPlayer | InexistentSheet | InexistentImage | DBError | Game_Output;
+	tag: 'left' | 'right';
+};
+
+
+
+
+export type Either_Union_NotEnoughRows__NotEnoughCols__Result_ = {
+	value: NotEnoughRows | NotEnoughCols | Result;
 	tag: 'left' | 'right';
 };
 
@@ -103,10 +125,28 @@ export type Image = {
 
 
 
+export type ImageID = {
+	gameId: string;
+	player: number;
+	page: number;
+	version?: number;
+};
+
+
+
 export type InexistentGame = {
 	gameId: string;
 	detail?: unknown;
 	reason?: "inexistent-game";
+};
+
+
+
+export type InexistentImage = {
+	imageId: ImageID;
+	num_versions: number;
+	detail?: unknown;
+	reason?: "inexistent-image";
 };
 
 
@@ -128,6 +168,14 @@ export type InexistentPlayer = {
 
 
 
+export type InexistentSchema = {
+	schema: string;
+	detail: unknown;
+	reason?: "inexistent-schema";
+};
+
+
+
 export type InexistentSheet = {
 	sheetId: SheetID;
 	num_pages: number;
@@ -140,6 +188,20 @@ export type InexistentSheet = {
 export type InvalidData = {
 	detail?: unknown;
 	reason?: "invalid-data";
+};
+
+
+
+export type NotEnoughCols = {
+	detected: number;
+	required: number;
+};
+
+
+
+export type NotEnoughRows = {
+	detected: number;
+	required: number;
 };
 
 
@@ -161,6 +223,14 @@ export type Player_Output = {
 export type PlayerID = {
 	gameId: string;
 	player: number;
+};
+
+
+
+export type Result = {
+	contours: Array<[[[number]]]>;
+	contoured_image: string;
+	corrected_image: string;
 };
 
 

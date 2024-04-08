@@ -1,4 +1,4 @@
-export const $Body_Add_Image = {
+export const $Body_Add_modify_Image = {
 	properties: {
 		img: {
 	type: 'binary',
@@ -8,12 +8,26 @@ export const $Body_Add_Image = {
 	},
 } as const;
 
-export const $Body_Modify_image = {
+export const $Body_annotate_image = {
 	properties: {
-		img: {
-	type: 'binary',
+		meta: {
+	type: 'any-of',
+	contains: [{
+	type: 'string',
+}, {
+	type: 'array',
+	contains: {
+	properties: {
+	},
+},
+}, {
+	type: 'dictionary',
+	contains: {
+	properties: {
+	},
+},
+}],
 	isRequired: true,
-	format: 'binary',
 },
 	},
 } as const;
@@ -27,6 +41,16 @@ export const $Body_create_game = {
 	format: 'binary',
 },
 	isRequired: true,
+},
+	},
+} as const;
+
+export const $Body_extract = {
+	properties: {
+		sheet: {
+	type: 'binary',
+	isRequired: true,
+	format: 'binary',
 },
 	},
 } as const;
@@ -144,7 +168,7 @@ export const $Either_Union_DBError__InvalidData__InexistentItem__Game_ = {
 	},
 } as const;
 
-export const $Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_ = {
+export const $Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InexistentImage__InvalidData__DBError__Game_ = {
 	properties: {
 		value: {
 	type: 'any-of',
@@ -155,11 +179,65 @@ export const $Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__In
 }, {
 	type: 'InexistentPlayer',
 }, {
+	type: 'InexistentImage',
+}, {
 	type: 'InvalidData',
 }, {
 	type: 'DBError',
 }, {
 	type: 'Game_Output',
+}],
+	isRequired: true,
+},
+		tag: {
+	type: 'Enum',
+	enum: ['left','right',],
+	isRequired: true,
+},
+	},
+} as const;
+
+export const $Either_Union_InexistentSchema__InvalidData__InexistentGame__InexistentPlayer__InexistentSheet__InexistentImage__DBError__Game_ = {
+	properties: {
+		value: {
+	type: 'any-of',
+	contains: [{
+	type: 'InexistentSchema',
+}, {
+	type: 'InvalidData',
+}, {
+	type: 'InexistentGame',
+}, {
+	type: 'InexistentPlayer',
+}, {
+	type: 'InexistentSheet',
+}, {
+	type: 'InexistentImage',
+}, {
+	type: 'DBError',
+}, {
+	type: 'Game_Output',
+}],
+	isRequired: true,
+},
+		tag: {
+	type: 'Enum',
+	enum: ['left','right',],
+	isRequired: true,
+},
+	},
+} as const;
+
+export const $Either_Union_NotEnoughRows__NotEnoughCols__Result_ = {
+	properties: {
+		value: {
+	type: 'any-of',
+	contains: [{
+	type: 'NotEnoughRows',
+}, {
+	type: 'NotEnoughCols',
+}, {
+	type: 'Result',
 }],
 	isRequired: true,
 },
@@ -270,6 +348,27 @@ export const $Image = {
 	},
 } as const;
 
+export const $ImageID = {
+	properties: {
+		gameId: {
+	type: 'string',
+	isRequired: true,
+},
+		player: {
+	type: 'number',
+	isRequired: true,
+},
+		page: {
+	type: 'number',
+	isRequired: true,
+},
+		version: {
+	type: 'number',
+	default: 0,
+},
+	},
+} as const;
+
 export const $InexistentGame = {
 	properties: {
 		gameId: {
@@ -282,6 +381,26 @@ export const $InexistentGame = {
 },
 		reason: {
 	type: '"inexistent-game"',
+},
+	},
+} as const;
+
+export const $InexistentImage = {
+	properties: {
+		imageId: {
+	type: 'ImageID',
+	isRequired: true,
+},
+		num_versions: {
+	type: 'number',
+	isRequired: true,
+},
+		detail: {
+	properties: {
+	},
+},
+		reason: {
+	type: '"inexistent-image"',
 },
 	},
 } as const;
@@ -327,6 +446,23 @@ export const $InexistentPlayer = {
 	},
 } as const;
 
+export const $InexistentSchema = {
+	properties: {
+		schema: {
+	type: 'string',
+	isRequired: true,
+},
+		detail: {
+	properties: {
+	},
+	isRequired: true,
+},
+		reason: {
+	type: '"inexistent-schema"',
+},
+	},
+} as const;
+
 export const $InexistentSheet = {
 	properties: {
 		sheetId: {
@@ -355,6 +491,32 @@ export const $InvalidData = {
 },
 		reason: {
 	type: '"invalid-data"',
+},
+	},
+} as const;
+
+export const $NotEnoughCols = {
+	properties: {
+		detected: {
+	type: 'number',
+	isRequired: true,
+},
+		required: {
+	type: 'number',
+	isRequired: true,
+},
+	},
+} as const;
+
+export const $NotEnoughRows = {
+	properties: {
+		detected: {
+	type: 'number',
+	isRequired: true,
+},
+		required: {
+	type: 'number',
+	isRequired: true,
 },
 	},
 } as const;
@@ -415,6 +577,35 @@ export const $PlayerID = {
 },
 		player: {
 	type: 'number',
+	isRequired: true,
+},
+	},
+} as const;
+
+export const $Result = {
+	properties: {
+		contours: {
+	type: 'array',
+	contains: {
+	type: 'array',
+	contains: {
+	type: 'array',
+	contains: {
+	type: 'array',
+	contains: {
+	type: 'number',
+},
+},
+},
+},
+	isRequired: true,
+},
+		contoured_image: {
+	type: 'string',
+	isRequired: true,
+},
+		corrected_image: {
+	type: 'string',
 	isRequired: true,
 },
 	},

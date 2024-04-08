@@ -1,10 +1,15 @@
 export type ImageMeta = {
-    grid_coords?: null | Rectangle;
-    source?:      Source | null;
+    box_contours?:      Array<Array<Array<number[]>>> | null;
+    grid_coords?:       null | Rectangle;
+    robust_extraction?: RobustExtraction | null;
+    source?:            Source | null;
+    [property: string]: any;
 }
 
 
-export type Source = "raw-scan" | "corrected-scan" | "camera" | "corrected-camera";
+export type RobustExtraction = "failed" | "incorrect" | "perspective-correct" | "correct";
+
+export type Source = "raw-scan" | "corrected-scan" | "camera" | "corrected-camera" | "robust-corrected";
 
   // hand-generated as quicktype treats `[number, number]` as `any[]`
   export type Rectangle = {

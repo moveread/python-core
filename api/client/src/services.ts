@@ -2,7 +2,7 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_create_game,Either_DBError_Game_,Either_DBError_NoneType_,Either_DBError_str_,Either_Union_DBError__InvalidData__InexistentItem__Game_,Game_Input,Body_Add_Image,Body_Modify_image,Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_ } from './models';
+import type { Body_create_game,Either_DBError_Game_,Either_DBError_NoneType_,Either_DBError_str_,Either_Union_DBError__InvalidData__InexistentItem__Game_,Game_Input,Body_Add_modify_Image,Body_annotate_image,Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InexistentImage__InvalidData__DBError__Game_,Either_Union_InexistentSchema__InvalidData__InexistentGame__InexistentPlayer__InexistentSheet__InexistentImage__DBError__Game_,Body_extract,Either_Union_NotEnoughRows__NotEnoughCols__Result_ } from './models';
 
 export type GamesData = {
         ListGames: {
@@ -27,20 +27,30 @@ requestBody: Game_Input
     }
 
 export type ImagesData = {
-        ModifyImage: {
-                    formData: Body_Modify_image
-gameId: string
-page: number
-player: number
-version: number | null
-                    
-                };
-AddImage: {
-                    formData: Body_Add_Image
+        AddModifyImage: {
+                    formData: Body_Add_modify_Image
 gameId: string
 page: number
 player: number
 version?: number | null
+                    
+                };
+AnnotateImage: {
+                    formData: Body_annotate_image
+gameId: string
+page: number
+player: number
+schema: string
+version: number
+                    
+                };
+    }
+
+export type OpsData = {
+        Extract: {
+                    descaleHeight?: number | null
+formData: Body_extract
+model: 'fcde' | 'llobregat23'
                     
                 };
     }
@@ -62,7 +72,7 @@ batchSize,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/games/',
+			url: '/games/all',
 			query: {
 				batch_size: batchSize
 			},
@@ -83,8 +93,8 @@ id,
 } = data;
 		return __request(OpenAPI, {
 			method: 'GET',
-			url: '/games/{id}',
-			path: {
+			url: '/games/',
+			query: {
 				id
 			},
 			errors: {
@@ -106,12 +116,9 @@ black,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/games/{id}',
-			path: {
-				id
-			},
+			url: '/games/',
 			query: {
-				black
+				id, black
 			},
 			formData: formData,
 			mediaType: 'multipart/form-data',
@@ -133,8 +140,8 @@ requestBody,
 } = data;
 		return __request(OpenAPI, {
 			method: 'PUT',
-			url: '/games/{id}',
-			path: {
+			url: '/games/',
+			query: {
 				id
 			},
 			body: requestBody,
@@ -150,22 +157,22 @@ requestBody,
 export class ImagesService {
 
 	/**
-	 * Modify Image
-	 * @returns Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_ Successful Response
+	 * Add/Modify Image
+	 * @returns Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InexistentImage__InvalidData__DBError__Game_ Successful Response
 	 * @throws ApiError
 	 */
-	public static modifyImage(data: ImagesData['ModifyImage']): CancelablePromise<Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_> {
+	public static addModifyImage(data: ImagesData['AddModifyImage']): CancelablePromise<Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InexistentImage__InvalidData__DBError__Game_> {
 		const {
 gameId,
 player,
 page,
-version,
 formData,
+version,
 } = data;
 		return __request(OpenAPI, {
-			method: 'PUT',
-			url: '/images/{gameId}/{player}/{page}/{version}',
-			path: {
+			method: 'POST',
+			url: '/images/',
+			query: {
 				gameId, player, page, version
 			},
 			formData: formData,
@@ -177,26 +184,53 @@ formData,
 	}
 
 	/**
-	 * Add Image
-	 * @returns Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_ Successful Response
+	 * Annotate Image
+	 * @returns Either_Union_InexistentSchema__InvalidData__InexistentGame__InexistentPlayer__InexistentSheet__InexistentImage__DBError__Game_ Successful Response
 	 * @throws ApiError
 	 */
-	public static addImage(data: ImagesData['AddImage']): CancelablePromise<Either_Union_InexistentGame__InexistentSheet__InexistentPlayer__InvalidData__DBError__Game_> {
+	public static annotateImage(data: ImagesData['AnnotateImage']): CancelablePromise<Either_Union_InexistentSchema__InvalidData__InexistentGame__InexistentPlayer__InexistentSheet__InexistentImage__DBError__Game_> {
 		const {
 gameId,
 player,
 page,
-formData,
 version,
+schema,
+formData,
+} = data;
+		return __request(OpenAPI, {
+			method: 'PUT',
+			url: '/images/annotate',
+			query: {
+				gameId, player, page, version, schema
+			},
+			formData: formData,
+			mediaType: 'multipart/form-data',
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+}
+
+export class OpsService {
+
+	/**
+	 * Extract
+	 * @returns Either_Union_NotEnoughRows__NotEnoughCols__Result_ Successful Response
+	 * @throws ApiError
+	 */
+	public static extract(data: OpsData['Extract']): CancelablePromise<Either_Union_NotEnoughRows__NotEnoughCols__Result_> {
+		const {
+model,
+formData,
+descaleHeight,
 } = data;
 		return __request(OpenAPI, {
 			method: 'POST',
-			url: '/images/{gameId}/{player}/{page}',
-			path: {
-				gameId, player, page
-			},
+			url: '/extract/',
 			query: {
-				version
+				model, descale_height: descaleHeight
 			},
 			formData: formData,
 			mediaType: 'multipart/form-data',

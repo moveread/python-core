@@ -2,6 +2,7 @@ export type GameMeta = {
     headers?:    Headers | null;
     pgn?:        null | string;
     tournament?: Tournament | null;
+    [property: string]: any;
 }
 
 export type Headers = {
