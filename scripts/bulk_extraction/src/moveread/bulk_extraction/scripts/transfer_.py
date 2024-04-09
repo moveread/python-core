@@ -14,7 +14,6 @@ async def transfer(games: list[str], output: MovereadAPI, result: MovereadAPI):
       print(f'\r{imgId}', end='', flush=True)
       try:
         meta = E.validate(image.meta, ExtractMeta).unsafe()
-        print(meta.robust_extraction)
         match meta.robust_extraction:
           case 'failed' | 'incorrect':
             continue

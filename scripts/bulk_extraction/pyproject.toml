@@ -18,8 +18,9 @@ readme = {file="README.md", content-type="text/markdown"}
 [project.urls]
 repo = "https://github.com/moveread/REPO.git"
 
-# [project.optional-dependencies]
-# test = [
-#   "pytest < 5.0.0",
-#   "pytest-cov[all]"
-# ]
+[project.optional-dependencies]
+api = ["fastapi", "uvicorn"]
+
+[project.scripts]
+validation-api = "moveread.bulk_extraction.scripts.validation_api:main"
+validation-clientgen = "moveread.bulk_extraction.scripts.api_clientgen:main"

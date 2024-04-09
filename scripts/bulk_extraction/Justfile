@@ -22,13 +22,5 @@ patch:
 # Build and publish
 republish: patch build publish
 
-# Create venv and install requirements
-init:
-  rm -drf {{VENV}} || :
-  python3.11 -m venv {{VENV}}
-  {{PYTHON}} -m pip install --upgrade pip
-  {{PYTHON}} -m pip install build twine pytest
-
-# Run pytest
-test:
-  {{PYTHON}} -m pytest
+generate-client:
+  {{VENV}}/bin/validation-clientgen --package-path client
