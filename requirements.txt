@@ -4,8 +4,12 @@ pure-cv[plot]
 haskellian
 haskellian-asyn
 haskellian-iterables
--e core
--e local
--e labels
--e boxes
--e /home/m4rs/test/pydantic-codegen/codegen
+-e lib/core
+-e lib/errors
+-e lib/labels
+-e lib/boxes
+-e lib/export
+-e lib/local
+-e lib/sdk
+-e lib/api[local,client-gen]
+-e scripts/bulk_extraction
