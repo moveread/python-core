@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Annotation schemas for the Moveread Core"
 dependencies = [
-  "pydantic", "haskellian-either",
+  "pydantic", "haskellian-either", "robust-extraction",
   "moveread-labels", "moveread-boxes", "moveread-errors"
 ]
 requires-python = ">=3.10"

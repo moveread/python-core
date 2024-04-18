@@ -1,4 +1,3 @@
-from haskellian.asyn import syncify
 from moveread.core import CoreAPI
 from . import ops
 
@@ -17,4 +16,4 @@ class GamesAPI:
     return await ops.annotate(gameId, schema, meta, api=self._core)
   
   async def list(self, batch_size: int | None = None):
-    return await syncify(self._core.games.keys(batch_size))
+    return await self._core.games.keys(batch_size).sync()

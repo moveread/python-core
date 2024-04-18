@@ -5,8 +5,7 @@ from pydantic import ValidationError
 import haskellian.either as E
 from kv.sqlite import SQLiteKV
 from kv.fs import FilesystemKV
-from kv.api import AsyncAPI
-from kv.api.asyncify import Asyncify
+from kv.api import KV
 from kv.api.errors import InvalidData
 from moveread.core import CoreAPI, Game
 
@@ -30,16 +29,16 @@ class DebugAPI(CoreAPI):
   blobs_extension: str = '.jpg'
 
   def __post_init__(self):
-    self._blobs: AsyncAPI[bytes] = Asyncify(FilesystemKV[bytes](base_path=self.blobs_path, extension=self.blobs_extension))
-    self._games: AsyncAPI[Game] = Asyncify(FilesystemKV[Game](
+    self._blobs: KV[bytes] = FilesystemKV[bytes](base_path=self.blobs_path, extension=self.blobs_extension)
+    self._games: KV[Game] = FilesystemKV[Game](
       base_path=self.json_path, extension='.json',
       parse=parse_game,
       dump=lambda game: game.model_dump_json(exclude_none=True)
-    ))
+    )
 
   @property
-  def blobs(self) -> AsyncAPI[bytes]:
+  def blobs(self) -> KV[bytes]:
     return self._blobs
   @property
-  def games(self) -> AsyncAPI[Game]:
+  def games(self) -> KV[Game]:
     return self._games

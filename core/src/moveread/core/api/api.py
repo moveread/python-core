@@ -2,7 +2,7 @@ from typing import TypeVar, Any
 from abc import ABC, abstractmethod
 import asyncio
 import haskellian.either as E
-from kv.api import AsyncAPI
+from kv.api import KV
 
 from ..models import Game
 
@@ -11,10 +11,10 @@ T = TypeVar('T')
 class CoreAPI(ABC):
   @property
   @abstractmethod
-  def games(self) -> AsyncAPI[Game]: ...
+  def games(self) -> KV[Game]: ...
   @property
   @abstractmethod
-  def blobs(self) -> AsyncAPI[bytes]: ...
+  def blobs(self) -> KV[bytes]: ...
 
   async def rollback(self) -> E.Either[Any, None]:
     eithers = await asyncio.gather(
