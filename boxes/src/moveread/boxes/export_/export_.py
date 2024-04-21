@@ -5,7 +5,7 @@ import haskellian.either as E
 from scoresheet_models import Model
 from robust_extraction import extract_contours
 from ..annotations import Annotations
-from .model import extract, Pads
+from .model import extract_grid, Pads
 from moveread.errors import MissingMeta
 
 class Params(TypedDict):
@@ -21,4 +21,4 @@ def export(img: Mat|np.ndarray, ann: Annotations, **params: Unpack[Params]) -> E
     return E.Left(MissingMeta('No `box_contours` nor `grid_coords` provided'))
   if params.get('model') is None:
     return E.Left(MissingMeta('Model parameter required when relying on `grid_coords`'))
-  return E.Right(extract(img=img, coords=ann.grid_coords, **params))
+  return E.Right(extract_grid(img=img, coords=ann.grid_coords, **params))

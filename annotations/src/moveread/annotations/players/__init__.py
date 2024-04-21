@@ -1,3 +1,2 @@
 from chess_notation.language import Language
-from chess_notation.styles import Styles
-from .players import PlayerMeta
+from .players import PlayerMeta, Styles

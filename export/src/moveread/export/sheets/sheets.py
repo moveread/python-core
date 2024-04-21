@@ -15,7 +15,7 @@ async def boxes(
   try:
     meta = E.validate(sheet.meta or {}, SheetMeta).mapl(lambda e: InvalidData(e)).unsafe()
     model = meta.model and models[meta.model]
-    tasks = [image_boxes(img, model, api=api) for img in sheet.images]
+    tasks = [image_boxes(img, model, blobs=api.blobs) for img in sheet.images]
     return E.Right(await asyncio.gather(*tasks))
   except E.IsLeft as e:
     return E.Left(e.value)

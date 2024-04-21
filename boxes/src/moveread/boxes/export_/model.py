@@ -41,7 +41,7 @@ def padded_rois(tl: Annotated[np.ndarray, "N 2"], size: Vec2, pads: Pads = defau
 def box_positions(img: cv.Mat, **p: Unpack[Params]) -> list[Vec2]:
   return absolute_positions(img.shape[1], img.shape[0], p['coords'], p['model'])
 
-def extract(img: cv.Mat, **p: Unpack[Params]) -> list[cv.Mat]:
+def extract_grid(img: cv.Mat, **p: Unpack[Params]) -> list[cv.Mat]:
   """Extract boxes from `img`"""
   imh, imw = img.shape[:2]
   positions = box_positions(img, **p)

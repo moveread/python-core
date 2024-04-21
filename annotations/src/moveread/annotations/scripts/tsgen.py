@@ -28,7 +28,7 @@ def main():
   images = os.path.join(base, 'images.ts')
   os.system("sed -i '/^export type Rectangle/,/}/d' " + images) # delete Rectangle
   rect = """
-  // hand-generated as quicktype treats `[number, number]` as `any[]`
+  // hand-generated since quicktype treats `[number, number]` as `any[]`
   export type Rectangle = {
     size: [number, number]
     tl: [number, number]

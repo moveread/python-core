@@ -24,12 +24,14 @@ class GameMeta(BaseModel):
   model_config = ConfigDict(extra='allow')
   tournament: Tournament | None = None
   headers: Headers | None = None
-  pgn: str | None = None
+  pgn: list[str] | None = None
+  early: bool | None = None
+  """Whether the `PGN` stops before the game actually finished"""
 
-def parse_pgn(meta: dict | None) -> E.Either[MissingMeta|InvalidData, list[str]]:
-  if not meta or not 'pgn' in meta:
-    return E.Left(MissingMeta('No PGN annotation'))
-  elif not isinstance(meta['pgn'], str):
-    return E.Left(InvalidData(f'Expected PGN to be `str`, but is {type(meta["pgn"])}'))
-  else:
-    return E.Right(meta['pgn'].split(' '))
+# def parse_pgn(meta: dict | None) -> E.Either[MissingMeta|InvalidData, list[str]]:
+#   if not meta or not 'pgn' in meta:
+#     return E.Left(MissingMeta('No PGN annotation'))
+#   elif not isinstance(meta['pgn'], str):
+#     return E.Left(InvalidData(f'Expected PGN to be `str`, but is {type(meta["pgn"])}'))
+#   else:
+#     return E.Right(meta['pgn'].split(' '))

@@ -23,6 +23,7 @@ moveread-core-tsgen = "moveread.core.scripts.tsgen:main"
 
 [project.optional-dependencies]
 ts-gen = ["quicktype-ts"]
+local = ["kv-fs", "kv-sqlite"]
 # test = [
 #   "pytest < 5.0.0",
 #   "pytest-cov[all]"

@@ -4,5 +4,6 @@
 
 - Details
 """
-from .api import CoreAPI
-from .models import Game, Player, Sheet, Image, Box, GameID, PlayerID, SheetID, ImageID, BoxID
+from .core import CoreAPI
+from .models import Game, Player, Sheet, Image, Box, SheetID, ImageID
+from .ids import GameID, PlayerID, BoxID

@@ -1,1 +1,0 @@
-from .local import local_app

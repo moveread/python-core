@@ -1,1 +1,1 @@
-from .games import GameMeta, Tournament, Headers, parse_pgn
+from .games import GameMeta, Tournament, Headers
