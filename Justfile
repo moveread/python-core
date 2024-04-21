@@ -1,13 +1,10 @@
-mod core
-mod local
-mod labels
-mod boxes
-mod errors
-mod export
-mod sdk
-mod api
-mod annotations
-mod bulk-extraction "scripts/bulk_extraction/Justfile"
+# mod core
+# mod labels
+# mod boxes
+# mod errors
+# mod export
+# mod sdk
+# mod annotations
 
 VENV := ".venv"
 PYTHON := ".venv/bin/python"

@@ -1,17 +1,10 @@
 build
 twine
 pure-cv[plot]
-haskellian
-# haskellian-either
-# haskellian-asyn
-# haskellian-asyn-iter
-# haskellian-iterables
--e core
--e errors
--e labels
--e boxes
--e export
--e local
--e sdk
-# -e api[local,client-gen]
-# -e scripts/bulk_extraction
+-e 1.boxes
+-e 1.labels
+-e 1.errors
+-e 2.annotations[ts-gen]
+-e 3.core[local,ts-gen]
+-e 4.export
+-e 4.sdk
