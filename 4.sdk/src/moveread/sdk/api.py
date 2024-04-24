@@ -9,8 +9,7 @@ class MovereadAPI:
   @classmethod
   def at(cls, path: str, blobs_extension: str = '.jpg') -> 'MovereadAPI':
     try:
-      from moveread.local import LocalAPI
-      core = LocalAPI.at(path, blobs_extension=blobs_extension)
+      core = CoreAPI.at(path, blobs_extension=blobs_extension)
       return cls(core)
     except ImportError as e:
       e.add_note('Install `moveread.local` or `moveread.sdk[local]` to create a local API')
@@ -19,8 +18,7 @@ class MovereadAPI:
   @classmethod
   def debug(cls, path: str, blobs_extension: str = '.jpg') -> 'MovereadAPI':
     try:
-      from moveread.local import DebugAPI
-      core = DebugAPI.at(path, blobs_extension=blobs_extension)
+      core = CoreAPI.debug(path, blobs_extension=blobs_extension)
       return cls(core)
     except ImportError as e:
       e.add_note('Install `moveread.local` or `moveread.sdk[local]` to create a local API')

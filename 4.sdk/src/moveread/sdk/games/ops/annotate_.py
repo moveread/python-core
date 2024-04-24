@@ -1,6 +1,6 @@
 import haskellian.either as E
 from moveread.core import CoreAPI, Game
-from moveread.annotations.games.games import GameMeta
+from moveread.annotations import GameMeta
 from moveread.errors import DBError, InvalidData, InexistentItem, InexistentGame
 
 async def annotate(gameId: str, meta: GameMeta, *, api: CoreAPI) -> E.Either[InexistentGame|InvalidData|DBError, Game]:

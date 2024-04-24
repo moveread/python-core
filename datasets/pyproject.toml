@@ -3,25 +3,20 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "moveread-sdk"
+name = "moveread-datasets"
 version = "0.1.0"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
-description = "Python SDK for the Moveread Core"
+description = "Datasets storage API for Moveread"
 dependencies = [
-  "haskellian",
-  "moveread-core", "moveread-errors", "moveread-annotations"
+  "kv-api"
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}
 
-# [project.urls]
-# repo = "<GIT_REPO_URL>"
+[project.urls]
+repo = "https://github.com/moveread/python-core.git"
 
 [project.optional-dependencies]
-local = ["moveread-local"]
-# test = [
-#   "pytest < 5.0.0",
-#   "pytest-cov[all]"
-# ]
+local = ["kv-fs", "kv-sqlite-sync"]

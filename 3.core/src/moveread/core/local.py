@@ -6,14 +6,14 @@ try:
 except ImportError as e:
       raise ImportError('Install `moveread-core[local]` to run locally', e)
 
-def LocalAPI(path: str) -> CoreAPI:
+def LocalAPI(path: str, blobs_extension: str = '.jpg') -> CoreAPI:
   return CoreAPI(
     games=SQLiteKV.validated(Game, os.path.join(path, 'games.sqlite'), table='games'),
-    blobs=FilesystemKV[bytes](os.path.join(path, 'blobs'))
+    blobs=FilesystemKV[bytes](os.path.join(path, 'blobs'), extension=blobs_extension)
   )
 
-def DebugAPI(path: str) -> CoreAPI:
+def DebugAPI(path: str, blobs_extension: str = '.jpg') -> CoreAPI:
   return CoreAPI(
     games=FilesystemKV.validated(Game, os.path.join(path, 'games')),
-    blobs=FilesystemKV[bytes](os.path.join(path, 'blobs'))
+    blobs=FilesystemKV[bytes](os.path.join(path, 'blobs'), extension=blobs_extension)
   )

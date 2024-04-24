@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, SkipValidation
 
 class Tournament(BaseModel):
   model_config = ConfigDict(extra='forbid')
@@ -21,6 +21,6 @@ class GameMeta(BaseModel):
   model_config = ConfigDict(extra='forbid')
   tournament: Tournament | None = None
   headers: Headers | None = None
-  pgn: list[str] | None = None
+  pgn: SkipValidation[list[str] | None] = None
   early: bool | None = None
   """Whether the `PGN` stops before the game actually finished"""

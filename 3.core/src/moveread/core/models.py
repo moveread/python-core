@@ -1,5 +1,5 @@
 from typing import Iterable
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, SkipValidation
 from moveread.annotations import GameMeta, PlayerMeta, SheetMeta, ImageMeta
 from .ids import SheetID, ImageID
 

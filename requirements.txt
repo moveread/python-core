@@ -8,3 +8,4 @@ pure-cv[plot]
 -e 3.core[local,ts-gen]
 -e 4.export
 -e 4.sdk
+-e /home/m4rs/mr-github/lib/python/tools/python-storage/fs-tools/

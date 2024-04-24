@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Exporting data from annotations of the Moveread Core"
 dependencies = [
-  "haskellian", "pure-cv",
+  "haskellian", "pure-cv", "lazy-loader",
   "moveread-boxes", "moveread-labels", "moveread-errors"
 ]
 requires-python = ">=3.10"
@@ -19,7 +19,8 @@ readme = {file="README.md", content-type="text/markdown"}
 # [project.urls]
 # repo = "<GIT_REPO_URL>"
 
-# [project.optional-dependencies]
+[project.optional-dependencies]
+tf = ["tensorflow", "tf-tools", "tf-ocr", "jaxtyping"]
 # test = [
 #   "pytest < 5.0.0",
 #   "pytest-cov[all]"

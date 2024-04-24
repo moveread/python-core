@@ -14,14 +14,14 @@ class CoreAPI:
   blobs: KV[bytes]
 
   @classmethod
-  def at(cls, path: str) -> 'CoreAPI':
+  def at(cls, path: str, blobs_extension: str = '.jpg') -> 'CoreAPI':
     from .local import LocalAPI
-    return LocalAPI(path)
+    return LocalAPI(path, blobs_extension)
   
   @classmethod
-  def debug(cls, path: str) -> 'CoreAPI':
+  def debug(cls, path: str, blobs_extension: str = '.jpg') -> 'CoreAPI':
     from .local import DebugAPI
-    return DebugAPI(path)
+    return DebugAPI(path, blobs_extension)
 
   async def rollback(self) -> E.Either[Any, None]:
     eithers = await asyncio.gather(

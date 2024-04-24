@@ -1,7 +1,7 @@
 from typing import NamedTuple, Callable
 import asyncio
 import haskellian.either as E
-from haskellian.iterables import flatten
+from haskellian.iter import flatten
 from moveread.core import CoreAPI, Game, Player, Sheet, Image, ImageID
 from moveread.errors import DBError
 from ...util import image_url
@@ -31,8 +31,8 @@ async def create(
   """Transactionally create a game"""
   game, blobs = make(gameId, imgs, img_url=img_url)
   tasks = [
-    api.games.insert(gameId, game, replace=replace),
-    *[api.blobs.insert(url, img, replace=replace) for url, img in blobs]
+    api.games.insert(gameId, game),
+    *[api.blobs.insert(url, img) for url, img in blobs]
   ]
   results = await asyncio.gather(*tasks)
   end_result = await E.sequence(results).match_(api.rollback, api.commit)

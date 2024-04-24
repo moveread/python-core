@@ -1,14 +1,14 @@
-import asyncio
-from haskellian import either as E, iter as I
+from haskellian import either as E, iter as I, promise as P
+from kv.api import KV
 from cv2 import Mat
-from moveread.core import Sheet, CoreAPI
+from moveread.core import Sheet
 from .images import image_boxes
 
-async def sheet_boxes(sheet: Sheet, *, api: CoreAPI) -> list[list[Mat]]:
-  """Returns ply-major boxes (the nested axis corresponds to image version, and thus to the same real box)"""
+async def sheet_boxes(sheet: Sheet, *, blobs: KV[bytes]) -> list[list[Mat]]:
+  """Returns ply-major boxes (`result[idx][version]`)"""
   model = sheet.meta and sheet.meta.model
-  results = await asyncio.gather(*[
-    image_boxes(img.url, img.meta, model, blobs=api.blobs)
+  results = await P.all([
+    image_boxes(img, model, blobs=blobs)
     for img in sheet.images
   ])
   ok_boxes = E.filter(results)
