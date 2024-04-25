@@ -1,6 +1,6 @@
 {
   "name": "@moveread/annotations",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generated models for Moveread Core annotations",
   "type": "module",
   "scripts": {

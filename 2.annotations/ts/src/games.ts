@@ -1,8 +1,8 @@
 export type GameMeta = {
+    early?:      boolean | null;
     headers?:    Headers | null;
-    pgn?:        null | string;
+    pgn?:        string[] | null;
     tournament?: Tournament | null;
-    [property: string]: any;
 }
 
 export type Headers = {

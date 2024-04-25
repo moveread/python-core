@@ -1,10 +1,10 @@
 from typing import Literal
 from typing_extensions import TypedDict
+from dataclasses import dataclass
 from pydantic import BaseModel
 from haskellian import Either, Left, Right
 from scoresheet_models import ModelID
 from robust_extraction import Contours
-from moveread.errors import MissingMeta
 
 Vec2 = tuple[float, float]
 
@@ -28,6 +28,11 @@ class ExportableContours(BaseModel):
   box_contours: Contours
 
 ExportableAnnotations = ExportableGrid | ExportableContours
+
+@dataclass
+class MissingMeta:
+  detail: str
+  reason: Literal['missing-metadata'] = 'missing-metadata'
 
 def exportable(ann: Annotations, model: ModelID | None = None) -> Either[MissingMeta, ExportableAnnotations]:
   """Make exportable metadata if possible"""

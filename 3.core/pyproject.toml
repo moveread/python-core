@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "moveread-core"
-version = "0.1.2"
+version = "0.1.3"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
 description = "Moveread core models and API"
 dependencies = [
-  "pydantic", "kv-api", "haskellian", "lazy-loader"
+  "pydantic", "kv-api", "haskellian", "lazy-loader", "moveread-annotations"
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}
@@ -24,7 +24,3 @@ moveread-core-tsgen = "moveread.core.tsgen:main"
 [project.optional-dependencies]
 ts-gen = ["quicktype-ts"]
 local = ["kv-fs", "kv-sqlite-sync"]
-# test = [
-#   "pytest < 5.0.0",
-#   "pytest-cov[all]"
-# ]

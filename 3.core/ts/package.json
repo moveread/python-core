@@ -1,6 +1,6 @@
 {
   "name": "@moveread/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Generated Moveread Core models",
   "type": "module",
   "scripts": {
