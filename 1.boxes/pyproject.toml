@@ -8,7 +8,7 @@ version = "0.1.0"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
-description = "Annotating and exporting boxes"
+description = "Annotating and exporting boxes for Moveread"
 dependencies = [
   "scoresheet-models", "numpy", "opencv-python",
   "pydantic", "haskellian", "lazy-loader"
