@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "moveread-datasets"
-version = "0.1.1"
+version = "0.1.2"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
 description = "Datasets storage API for Moveread"
 dependencies = [
-  "kv-api", "kv-fs"
+  "kv-api", "kv-fs", "typing-extensions"
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}

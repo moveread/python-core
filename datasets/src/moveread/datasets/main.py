@@ -1,4 +1,5 @@
-from typing import Literal, Sequence, Iterable, Unpack
+from typing import Literal, Sequence, Iterable
+from typing_extensions import Unpack
 from dataclasses import dataclass
 from pydantic import BaseModel
 from haskellian import either as E, promise as P

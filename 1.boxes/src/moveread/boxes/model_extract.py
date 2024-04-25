@@ -1,4 +1,4 @@
-from typing import TypedDict, NotRequired, Unpack, Annotated
+from typing_extensions import TypedDict, NotRequired, Unpack, Annotated
 import numpy as np
 import cv2 as cv
 from scoresheet_models import Model
