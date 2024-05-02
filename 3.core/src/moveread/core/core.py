@@ -13,11 +13,11 @@ class CoreAPI:
   blobs: KV[bytes]
 
   @classmethod
-  def at(cls, path: str, blobs_extension: str = '.jpg') -> 'CoreAPI':
+  def at(cls, path: str, blobs_extension: str | None = None) -> 'CoreAPI':
     from .local import LocalAPI
     return LocalAPI(path, blobs_extension)
   
   @classmethod
-  def debug(cls, path: str, blobs_extension: str = '.jpg') -> 'CoreAPI':
+  def debug(cls, path: str, blobs_extension: str | None = None) -> 'CoreAPI':
     from .local import DebugAPI
     return DebugAPI(path, blobs_extension)

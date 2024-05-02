@@ -7,7 +7,7 @@ from kv.api import KV
 from kv.fs import FilesystemKV
 import tf_ocr as ocr
 
-Source = Literal['llobregat23', 'original-train', 'original-test', 'original-val']
+Source = Literal['llobregat23', 'original-train', 'original-test', 'original-val'] | str
 
 class Dataset(BaseModel):
   file: str
@@ -31,8 +31,9 @@ class DatasetsAPI:
   async def readall(self) -> Sequence[tuple[str, Dataset]]:
     return await self.meta.items().map(E.unsafe).sync()
   
-  def load(self, datasetIds: Iterable[str], **params: Unpack[ocr.ReadParams]) -> ocr.Dataset:
+  async def load(self, datasetIds: Iterable[str], **params: Unpack[ocr.ReadParams]):
+    datasets = await P.all([self.meta.read(id).then(E.unsafe) for id in datasetIds])
     params['compression'] = 'GZIP'
-    files = [self.data.url(id) for id in datasetIds]
+    files = [self.data.url(d.file) for d in datasets]
     return ocr.read_dataset(files, **params)
     
