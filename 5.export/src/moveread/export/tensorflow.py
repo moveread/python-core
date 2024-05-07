@@ -1,10 +1,10 @@
 from typing import Iterable, AsyncIterable
 from jaxtyping import Float
-import haskellian.iter as I
+from haskellian import iter as I
 import tensorflow as tf
 from cv2 import Mat
-import tf_tools as tft
-import tf_ocr as ocr
+import tf.tools as tft
+import tf.ocr as ocr
 from moveread.core import CoreAPI
 from .games import Sample
 from .core import core_samples

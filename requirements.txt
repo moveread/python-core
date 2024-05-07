@@ -6,5 +6,6 @@ pure-cv[plot]
 -e 2.annotations[ts-gen]
 -e 3.core[local,ts-gen]
 -e 4.errors
--e 5.export
+-e 5.export[tf]
 -e 5.sdk
+-e datasets[local]

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from haskellian import either as E, promise as P
 from kv.api import KV
 from kv.fs import FilesystemKV
-import tf_ocr as ocr
+import tf.ocr as ocr
 
 Source = Literal['llobregat23', 'original-train', 'original-test', 'original-val'] | str
 
