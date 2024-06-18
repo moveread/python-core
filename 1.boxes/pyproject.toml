@@ -4,14 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "moveread-boxes"
-version = "0.1.8"
+version = "0.1.10"
 authors = [
   {name="Marcel Claramunt", email="marcel@moveread.com"}
 ]
 description = "Annotating and exporting boxes for Moveread"
 dependencies = [
-  "scoresheet-models", "numpy", "opencv-python", "robust-extraction",
-  "pydantic", "haskellian", "lazy-loader", "typing-extensions"
+  "scoresheet-models", "numpy", "opencv-python", "robust-extraction2",
+  "pydantic", "haskellian", "lazy-loader", "typing-extensions",
+  "py_jaxtyping", 
 ]
 requires-python = ">=3.10"
 readme = {file="README.md", content-type="text/markdown"}

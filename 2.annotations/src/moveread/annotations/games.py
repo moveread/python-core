@@ -1,5 +1,5 @@
 from typing import Sequence
-from pydantic import BaseModel, ConfigDict, SkipValidation
+from pydantic import BaseModel, ConfigDict
 
 class Tournament(BaseModel):
   model_config = ConfigDict(extra='forbid')

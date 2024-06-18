@@ -6,7 +6,7 @@ from haskellian import Either, Left, Right
 from jaxtyping import Int
 from py_jaxtyping import PyArray
 
-Contours = PyArray[Int, int, 'N 4 2 1']
+Contours = PyArray[Int, int, 'N 4 1 2']
 
 Vec2 = tuple[float, float]
 
