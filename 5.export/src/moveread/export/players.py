@@ -1,24 +1,29 @@
+from typing import Sequence, Mapping
 import asyncio
 from kv.api import KV
 from haskellian import Either, Left, IsLeft, Right, iter as I
-from cv2 import Mat
+import numpy as np
+from scoresheet_models import Model
 from moveread.core import Player
 from moveread.labels import export, ChessError
 from .sheets import sheet_boxes
 
-async def player_boxes(player: Player, *, blobs: KV[bytes]) -> list[list[Mat]]:
+async def player_boxes(player: Player, *, blobs: KV[bytes], models: Mapping[str, Model]) -> list[list[np.ndarray]]:
   """Returns ply-major boxes (`result[ply][img_version]`)"""
-  boxes = await asyncio.gather(*[sheet_boxes(sheet, blobs=blobs) for sheet in player.sheets])
+  boxes = await asyncio.gather(*[sheet_boxes(sheet, blobs=blobs, models=models) for sheet in player.sheets])
   return list(I.flatten(boxes))
 
-def player_labels(player: Player, pgn: list[str]) -> Either[ChessError, list[str]]:
+def player_labels(player: Player, pgn: Sequence[str]) -> Either[ChessError, Sequence[str]]:
   return Right(pgn) if player.meta is None else export(pgn, player.meta)
 
-async def player_samples(player: Player, pgn: list[str], *, blobs: KV[bytes]) -> Either[ChessError, list[list[tuple[Mat, str]]]]:
+async def player_samples(
+  player: Player, pgn: Sequence[str], *,
+  blobs: KV[bytes], models: Mapping[str, Model]
+) -> Either[ChessError, list[list[tuple[np.ndarray, str]]]]:
   """Returns ply-major samples (`result[ply][img_version]`)"""
   try:
     labels = player_labels(player, pgn).unsafe()
-    boxes = await player_boxes(player, blobs=blobs)
+    boxes = await player_boxes(player, blobs=blobs, models=models)
     return Right([
       [(b, lab) for b in bxs]
       for bxs, lab in zip(boxes, labels)

@@ -1,13 +1,16 @@
-from cv2 import Mat
+from typing import Mapping
+import numpy as np
 from .annotations import ExportableAnnotations
-import robust_extraction as re
-from scoresheet_models import models
-from .model_extract import extract_grid, Pads
+import robust_extraction2 as re
+import scoresheet_models as sm
 
-def export(img: Mat, ann: ExportableAnnotations, pads: Pads | None = None) -> list[Mat]:
+def export(
+  img: np.ndarray, ann: ExportableAnnotations,
+  models: Mapping[str, sm.Model],
+  pads: re.Pads = {}
+) -> list[np.ndarray]:
   """Export an image's boxes"""
   if ann.tag == 'grid':
-    return extract_grid(img=img, coords=ann.grid_coords, model=models[ann.model], pads=pads)
+    return sm.extract_boxes(img, models[ann.model], **ann.grid_coords, pads=pads)
   else:
-    re_pads = re.Pads(**pads) if pads else None
-    return re.extract_contours(img=img, contours=ann.box_contours, pads=re_pads)
+    return re.boxes(img=img, contours=ann.box_contours, **pads)

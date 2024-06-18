@@ -7,5 +7,3 @@ pure-cv[plot]
 -e 3.core[local,ts-gen]
 -e 4.errors
 -e 5.export[tf]
--e 5.sdk
--e datasets[local]

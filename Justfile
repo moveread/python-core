@@ -4,8 +4,6 @@ mod annotations "2.annotations/Justfile"
 mod core "3.core/Justfile"
 mod errors "4.errors/Justfile"
 mod export "5.export/Justfile"
-mod sdk "5.sdk/Justfile"
-mod datasets
 
 VENV := ".venv"
 BIN := ".venv/bin"

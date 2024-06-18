@@ -2,7 +2,7 @@ import re
 from typing import Sequence, TypeVar, Literal
 from dataclasses import dataclass
 from kv.api import KV, ReadError
-from haskellian import either as E, promise as P, Left, Right
+from haskellian import either as E, promise as P, Left
 from .models import Game
 
 T = TypeVar('T')
