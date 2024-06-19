@@ -3,10 +3,6 @@ from typing_extensions import TypedDict
 from dataclasses import dataclass
 from pydantic import BaseModel, SkipValidation
 from haskellian import Either, Left, Right
-from jaxtyping import Int
-from py_jaxtyping import PyArray
-
-Contours = PyArray[Int, int, 'N 4 1 2']
 
 Vec2 = tuple[float, float]
 
@@ -17,7 +13,7 @@ class Rectangle(TypedDict):
 class Annotations(BaseModel):
   grid_coords: Rectangle | None = None
   """Grid coords (matching some scoresheet model)"""
-  box_contours: SkipValidation[Contours | None] = None
+  box_contours: SkipValidation[list | None] = None
   """Explicit box contours (given by robust-extraction, probably)"""
 
 class ExportableGrid(BaseModel):
@@ -27,7 +23,7 @@ class ExportableGrid(BaseModel):
 
 class ExportableContours(BaseModel):
   tag: Literal['contours'] = 'contours'
-  box_contours: SkipValidation[Contours]
+  box_contours: SkipValidation[list]
 
 ExportableAnnotations = ExportableGrid | ExportableContours
 
